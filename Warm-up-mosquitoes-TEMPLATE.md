@@ -1,0 +1,314 @@
+Warm-up mini-Report: Mosquito Blood Hosts in Salt Lake City, Utah
+================
+Darcey Ferguson
+10/1/25
+
+# **ABSTRACT**
+
+West Nile Virus is changing the health of more than 1000 individuals per
+year. This disease is spread from host animals and mosquitos. From
+previous data we suspect that the house finch is an important host
+animal being able to keep viremia in system for a long period of time.
+If the House finches are acting as important amplifying hosts of WNV in
+Salt Lake City then we will see more blood meal counts in our mosquito
+data of House finches because there will be more mosquitos carrying the
+WNV to and from the House finches. We found a signifiance between house
+finches and having WNV as well as the location showing an impact of WNV
+mosquitos that bit house finches.
+
+# **BACKGROUND**
+
+West Nile Virus is a disease spread by many different animals and
+insects. The most common form of transport is through a mosquito to a
+host. Then the host spreads the disease further to other animals. This
+is important to study because this disease causes fever, headache, body
+aches, vomiting, diarrhea, or rash. (CDC, 2025) We are tyring to best
+prevent this disease from spreading by examining the host animals that
+amplify the spread of the disease. From the bar plot below we can see
+that house finch is one of the species that keeps viremia of WNV in
+their system the longest. (Kumar et al., 2003) In this experiment we
+hope to study house finches and WNV.
+
+``` r
+# Manually transcribe duration (mean, lo, hi) from the last table column
+duration <- data.frame(
+  Bird = c("Canada Goose","Mallard", 
+           "American Kestrel","Northern Bobwhite",
+           "Japanese Quail","Ring-necked Pheasant",
+           "American Coot","Killdeer",
+           "Ring-billed Gull","Mourning Dove",
+           "Rock Dove","Monk Parakeet",
+           "Budgerigar","Great Horned Owl",
+           "Northern Flicker","Blue Jay",
+           "Black-billed Magpie","American Crow",
+           "Fish Crow","American Robin",
+           "European Starling","Red-winged Blackbird",
+           "Common Grackle","House Finch","House Sparrow"),
+  mean = c(4.0,4.0,4.5,4.0,1.3,3.7,4.0,4.5,5.5,3.7,3.2,2.7,1.7,6.0,4.0,
+           4.0,5.0,3.8,5.0,4.5,3.2,3.0,3.3,6.0,4.5),
+  lo   = c(3,4,4,3,0,3,4,4,4,3,3,1,0,6,3,
+           3,5,3,4,4,3,3,3,5,2),
+  hi   = c(5,4,5,5,4,4,4,5,7,4,4,4,4,6,5,
+           5,5,5,7,5,4,3,4,7,6)
+)
+
+# Choose some colors
+cols <- c(rainbow(30)[c(10:29,1:5)])  # rainbow colors
+
+# horizontal barplot
+par(mar=c(5,12,2,2))  # wider left margin for names
+bp <- barplot(duration$mean, horiz=TRUE, names.arg=duration$Bird,
+              las=1, col=cols, xlab="Days of detectable viremia", xlim=c(0,7))
+
+# add error bars
+arrows(duration$lo, bp, duration$hi, bp,
+       angle=90, code=3, length=0.05, col="black", xpd=TRUE)
+```
+
+<img src="Warm-up-mosquitoes-TEMPLATE_files/figure-gfm/viremia-1.png" style="display: block; margin: auto auto auto 0;" />
+
+# **STUDY QUESTIONS and HYPOTHESIS**
+
+## **Questions**
+
+What bird species is acting as WNV amplifying host \# GLM: Generalized
+Linear Modeling
+
+Answer: YES. Statistically significant association.
+
+Possible caveats? Limitations?
+
+What bird species family is acting as the best WNV amplifying host in
+Salt Lake City?
+
+## **Hypothesis**
+
+If the House finches are acting as important amplifying hosts of WNV in
+Salt Lake City then we will see more blood meal counts in our mosquito
+data of House finches because there will be more mosquitos carry the WNV
+to and from the House finches.
+
+## **Prediction**
+
+If the House Finch is an important amplifying host, then we will predict
+that trapped mosquitoes that feed on the House Finch with have higher
+rates of confirmed WNV in the mosquito groups we tested.
+
+# **METHODS**
+
+1)  Collect mosquitos in traps around Salt Lake City
+2)  Preform processes to isolate the blood from mosquitos
+3)  Preform DNA Sequencing for the blood in the mosquitos
+4)  BLAST the DNA sequences to identify the species that the blood came
+    from
+5)  Plot the data in a barpolot and make a generalized linear regression
+    and determine results
+
+# **Barplot visualization**
+
+Barplots of blood meal ID by trap locations with/without WNV positive
+mosquito pools
+
+``` r
+## import counts_matrix: data.frame with column 'loc_positives' (0/1) and host columns 'host_*'
+counts_matrix <- read.csv("./bloodmeal_plusWNV_for_BIOL3070.csv")
+
+## 1) Identify host columns
+host_cols <- grep("^host_", names(counts_matrix), value = TRUE)
+
+if (length(host_cols) == 0) {
+  stop("No columns matching '^host_' were found in counts_matrix.")
+}
+
+## 2) Ensure loc_positives is present and has both levels 0 and 1 where possible
+counts_matrix$loc_positives <- factor(counts_matrix$loc_positives, levels = c(0, 1))
+
+## 3) Aggregate host counts by loc_positives
+agg <- stats::aggregate(
+  counts_matrix[, host_cols, drop = FALSE],
+  by = list(loc_positives = counts_matrix$loc_positives),
+  FUN = function(x) sum(as.numeric(x), na.rm = TRUE)
+)
+
+## make sure both rows exist; if one is missing, add a zero row
+need_levels <- setdiff(levels(counts_matrix$loc_positives), as.character(agg$loc_positives))
+if (length(need_levels)) {
+  zero_row <- as.list(rep(0, length(host_cols)))
+  names(zero_row) <- host_cols
+  for (lv in need_levels) {
+    agg <- rbind(agg, c(lv, zero_row))
+  }
+  ## restore proper type
+  agg$loc_positives <- factor(agg$loc_positives, levels = c("0","1"))
+  ## coerce numeric host cols (they may have become character after rbind)
+  for (hc in host_cols) agg[[hc]] <- as.numeric(agg[[hc]])
+  agg <- agg[order(agg$loc_positives), , drop = FALSE]
+}
+
+## 4) Decide species order (overall abundance, descending)
+overall <- colSums(agg[, host_cols, drop = FALSE], na.rm = TRUE)
+host_order <- names(sort(overall, decreasing = TRUE))
+species_labels <- rev(sub("^host_", "", host_order))  # nicer labels
+
+## 5) Build count vectors for each panel in the SAME order
+counts0 <- rev(as.numeric(agg[agg$loc_positives == 0, host_order, drop = TRUE]))
+counts1 <- rev(as.numeric(agg[agg$loc_positives == 1, host_order, drop = TRUE]))
+
+## 6) Colors: reuse your existing 'cols' if it exists and is long enough; otherwise generate
+if (exists("cols") && length(cols) >= length(host_order)) {
+  species_colors <- setNames(cols[seq_along(host_order)], species_labels)
+} else {
+  species_colors <- setNames(rainbow(length(host_order) + 10)[seq_along(host_order)], species_labels)
+}
+
+## 7) Shared x-limit for comparability
+xmax <- max(c(counts0, counts1), na.rm = TRUE)
+xmax <- if (is.finite(xmax)) xmax else 1
+xlim_use <- c(0, xmax * 1.08)
+
+## 8) Plot: two horizontal barplots with identical order and colors
+op <- par(mfrow = c(1, 2),
+          mar = c(4, 12, 3, 2),  # big left margin for species names
+          xaxs = "i")           # a bit tighter axis padding
+
+## Panel A: No WNV detected (loc_positives = 0)
+barplot(height = counts0,
+        names.arg = species_labels, 
+        cex.names = .5,
+        cex.axis = .5,
+        col = rev(unname(species_colors[species_labels])),
+        horiz = TRUE,
+        las = 1,
+        xlab = "Bloodmeal counts",
+        main = "Locations WNV (-)",
+        xlim = xlim_use)
+
+## Panel B: WNV detected (loc_positives = 1)
+barplot(height = counts1,
+        names.arg = species_labels, 
+        cex.names = .5,
+        cex.axis = .5,
+        col = rev(unname(species_colors[species_labels])),
+        horiz = TRUE,
+        las = 1,
+        xlab = "Bloodmeal counts",
+        main = "Locations WNV (+)",
+        xlim = xlim_use)
+```
+
+<img src="Warm-up-mosquitoes-TEMPLATE_files/figure-gfm/horiz-plot-1.png" style="display: block; margin: auto auto auto 0;" />
+
+``` r
+par(op)
+
+## Keep the colors mapping for reuse elsewhere
+host_species_colors <- species_colors
+```
+
+## **Interpretation of Barplot Visualization**
+
+We saw a significant amount of house finches having a blood meal that
+contained WNV. This could be due to the abundance of the house finch and
+the possiblility that the house finch is a good amplifierhost of WNV.
+
+# **Generalized Linear Modeling**
+
+House finch GLM:
+
+``` r
+#glm with house finch alone against binary +/_
+glm1 <- glm(loc_positives ~ host_House_finch,
+            data = counts_matrix,
+            family = binomial)
+summary(glm1)
+```
+
+    ## 
+    ## Call:
+    ## glm(formula = loc_positives ~ host_House_finch, family = binomial, 
+    ##     data = counts_matrix)
+    ## 
+    ## Coefficients:
+    ##                  Estimate Std. Error z value Pr(>|z|)  
+    ## (Intercept)       -0.1709     0.1053  -1.622   0.1047  
+    ## host_House_finch   0.3468     0.1586   2.187   0.0287 *
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## (Dispersion parameter for binomial family taken to be 1)
+    ## 
+    ##     Null deviance: 546.67  on 394  degrees of freedom
+    ## Residual deviance: 539.69  on 393  degrees of freedom
+    ## AIC: 543.69
+    ## 
+    ## Number of Fisher Scoring iterations: 4
+
+``` r
+#glm with house-finch alone against positivity rate
+glm2 <- glm(loc_rate ~ host_House_finch,
+            data = counts_matrix)
+summary(glm2)
+```
+
+    ## 
+    ## Call:
+    ## glm(formula = loc_rate ~ host_House_finch, data = counts_matrix)
+    ## 
+    ## Coefficients:
+    ##                  Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)      0.054861   0.006755   8.122 6.07e-15 ***
+    ## host_House_finch 0.027479   0.006662   4.125 4.54e-05 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## (Dispersion parameter for gaussian family taken to be 0.01689032)
+    ## 
+    ##     Null deviance: 6.8915  on 392  degrees of freedom
+    ## Residual deviance: 6.6041  on 391  degrees of freedom
+    ##   (2 observations deleted due to missingness)
+    ## AIC: -484.56
+    ## 
+    ## Number of Fisher Scoring iterations: 2
+
+YES the House Finch has an effect by location positive +/-.
+Statistically significant association.
+
+## **Interpretation of GLM**
+
+We saw a significant correlation between the location based on the the
+house finch’s effect. This could mean that the location of the house
+finch has a impact on the WNV spreading.
+
+# **DISCUSSION**
+
+Since we found a significant correlation between location and house
+finch being effective amplifier of WNV and that house finches had the
+most blood meals with WNV. Then we can theorize a correlation between
+house finch being a significant amplifying host of WNV in Salt Lake
+City. Some limitations could be the fact that we can only collect the
+mosquito data within a certain location with the mosquito catching
+boxes.
+
+# **CONCLUSION**
+
+The house finch is an important amplifier of WNV in the Salt Lake
+Population. We can use this information to be able and create a way to
+decrease the spread of WNV in house finches.
+
+# **REFERENCES**
+
+1.  Komar N, Langevin S, Hinten S, Nemeth N, Edwards E, Hettler D, Davis
+    B, Bowen R, Bunning M. Experimental infection of North American
+    birds with the New York 1999 strain of West Nile virus. Emerg Infect
+    Dis. 2003 Mar;9(3):311-22. <https://doi.org/10.3201/eid0903.020628>
+
+2.  ChatGPT. OpenAI, version Jan 2025. Used as a reference for functions
+    such as plot() and to correct syntax errors. Accessed 2025-10-01.
+
+3.  Centers for Disease Control and Prevention. (n.d.). About West Nile.
+    Centers for Disease Control and Prevention.
+    <https://www.cdc.gov/west-nile-virus/about/index.html>
+
+4.  Centers for Disease Control and Prevention. (n.d.-b). Historic Data
+    (1999-2024). Centers for Disease Control and Prevention.
+    <https://www.cdc.gov/west-nile-virus/data-maps/historic-data.html>
