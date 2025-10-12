@@ -3,6 +3,22 @@ Warm-up mini-Report: Mosquito Blood Hosts in Salt Lake City, Utah
 Darcey Ferguson
 10/1/25
 
+- [**ABSTRACT**](#abstract)
+- [**BACKGROUND**](#background)
+- [**STUDY QUESTIONS and HYPOTHESIS**](#study-questions-and-hypothesis)
+  - [**Questions**](#questions)
+  - [**Hypothesis**](#hypothesis)
+  - [**Prediction**](#prediction)
+- [**METHODS**](#methods)
+- [**Bar Plot visualization**](#bar-plot-visualization)
+  - [**Interpretation of Bar Plot
+    Visualization**](#interpretation-of-bar-plot-visualization)
+- [**Generalized Linear Modeling**](#generalized-linear-modeling)
+  - [**Interpretation of GLM**](#interpretation-of-glm)
+- [**DISCUSSION**](#discussion)
+- [**CONCLUSION**](#conclusion)
+- [**REFERENCES**](#references)
+
 # **ABSTRACT**
 
 West Nile Virus is changing the health of more than 1000 individuals per
@@ -18,16 +34,22 @@ mosquitos that bit house finches.
 
 # **BACKGROUND**
 
-West Nile Virus is a disease spread by many different animals and
+West Nile Virus (WNV) is a disease spread by many different animals and
 insects. The most common form of transport is through a mosquito to a
 host. Then the host spreads the disease further to other animals. This
 is important to study because this disease causes fever, headache, body
-aches, vomiting, diarrhea, or rash. (CDC, 2025) We are tyring to best
-prevent this disease from spreading by examining the host animals that
-amplify the spread of the disease. From the bar plot below we can see
-that house finch is one of the species that keeps viremia of WNV in
-their system the longest. (Kumar et al., 2003) In this experiment we
-hope to study house finches and WNV.
+aches, vomiting, diarrhea, or rashes. (Centers for Disease Control and
+Prevention, 2025) Knowing the disastrous nature of this disease, we are
+using our best events to prevent the spreading. Our first question was
+what specific host animals are most receptive to the WNV. From the bar
+plot below we can see that house finch among other animals is one of the
+species that keeps viremia of WNV in their system the longest. (Kumar et
+al., 2003) This information provides us with key insight that certain
+animals are better vessels for carrying the WNV. Being in Utah where
+house finches are very prevalent it is better for us to focus on them as
+a key host for spreading WNV. (Utah Natural Heritage Program, 2019) In
+this experiment we hope to study house finches as a key amplifying host
+of WNV in Salt Lake City.
 
 ``` r
 # Manually transcribe duration (mean, lo, hi) from the last table column
@@ -71,22 +93,14 @@ arrows(duration$lo, bp, duration$hi, bp,
 
 ## **Questions**
 
-What bird species is acting as WNV amplifying host \# GLM: Generalized
-Linear Modeling
-
-Answer: YES. Statistically significant association.
-
-Possible caveats? Limitations?
-
-What bird species family is acting as the best WNV amplifying host in
-Salt Lake City?
+What bird species is acting as WNV amplifying host?
 
 ## **Hypothesis**
 
 If the House finches are acting as important amplifying hosts of WNV in
 Salt Lake City then we will see more blood meal counts in our mosquito
-data of House finches because there will be more mosquitos carry the WNV
-to and from the House finches.
+data of House finches because there will be more mosquitoes carrying the
+WNV to and from the House finches.
 
 ## **Prediction**
 
@@ -96,15 +110,33 @@ rates of confirmed WNV in the mosquito groups we tested.
 
 # **METHODS**
 
-1)  Collect mosquitos in traps around Salt Lake City
-2)  Preform processes to isolate the blood from mosquitos
-3)  Preform DNA Sequencing for the blood in the mosquitos
-4)  BLAST the DNA sequences to identify the species that the blood came
-    from
-5)  Plot the data in a barpolot and make a generalized linear regression
-    and determine results
+**Source of Birds and Mosquitoes** Birds from Salt Lake City area were
+the main target for the mosquitoes that we collected in our analysis.
 
-# **Barplot visualization**
+**Capture of Mosquitos** Box traps that lure mosquitoes in and then trap
+them were placed at certain places around Salt Lake city.
+
+**Evaluation of Mosquitoes’ Blood** Once the mosquitoes were collected
+we put each into a microtube. Then using sterilt techniques we crushed
+the mosquito to release the blood from the mosquitoes body. The blood
+belonging to the host it extracted it from if it is a female mosquito.
+The mosquito was further isolated until only the host animal DNA was
+left. The blood was sequenced using PCR and DNA sequencing. Next the DNA
+sequences were put through the system known as BLAST to identify the
+blood with the species of animal that the blood was extracted from.
+
+**West Nile Virus Examination** The blood from bird hosts were also
+assessed to find if it possesses WNV. The data was collected into a
+database and processed in R Studio.
+
+**Analysis Methods** The data was plotted in a bar plot to examine how
+each of the host birds had WNV and how long that WNV was examines in the
+bird. The other analysis was a generalized linear regression used to
+determine correlation between the location of the mosquitoes collected
+and the WNV being examined in that area. We used statistical tests to
+determined the statistical significance from each of the data.
+
+# **Bar Plot visualization**
 
 Barplots of blood meal ID by trap locations with/without WNV positive
 mosquito pools
@@ -205,15 +237,26 @@ par(op)
 host_species_colors <- species_colors
 ```
 
-## **Interpretation of Barplot Visualization**
+## **Interpretation of Bar Plot Visualization**
 
-We saw a significant amount of house finches having a blood meal that
-contained WNV. This could be due to the abundance of the house finch and
-the possiblility that the house finch is a good amplifierhost of WNV.
+This bar plot is of how blood meal counts varied from bird species’
+blood meals we collected and the WNV presence. The chart on the left
+shows birds blood meals we collected with no WNV and the right the bird
+bloods meals with WNV. We saw a significant amount of house finches
+having a blood meal that contained WNV. This could be due to the
+abundance of the house finch and the possibility that the house finch is
+a good amplifier host of WNV. One limitation to this data is not being
+able to examine birds on a wider scale. We were limited to the Salt Lake
+City area. This has an impact on how our data could be applied to other
+places because we do not have a wider spread data set. Overall though we
+see a significant change in the house finches in Salt Lake City area
+having a lot of blood meals that contained WNV in our study.
 
 # **Generalized Linear Modeling**
 
-House finch GLM:
+Generalized linear modeling regression of house finches’ blood meals
+containing WNV compared to the location that the mosquitoes were
+collected from.
 
 ``` r
 #glm with house finch alone against binary +/_
@@ -270,30 +313,58 @@ summary(glm2)
     ## 
     ## Number of Fisher Scoring iterations: 2
 
-YES the House Finch has an effect by location positive +/-.
-Statistically significant association.
-
 ## **Interpretation of GLM**
 
-We saw a significant correlation between the location based on the the
-house finch’s effect. This could mean that the location of the house
-finch has a impact on the WNV spreading.
+We examined the correlation between the location the house finch blood
+meals with WNV were collected and the location of where the mosquitoes
+with the blood meals were collected. We saw a statistically significant
+correlation between the location the blood meal of the house finch was
+collected from and the containing of WNV in the blood meal. This means
+that there is association between WNV house finches and the location of
+the house finches are at. The limitation of this study is that there are
+not traps very abundantly throughout the area. Meaning we don’t have a
+narrowed down location to where we are collecting these WNV blood meals.
+However, there is still significance in where the blood meal from the
+house finch is collected and whether the blood meal contains WNV or not.
 
 # **DISCUSSION**
 
-Since we found a significant correlation between location and house
-finch being effective amplifier of WNV and that house finches had the
-most blood meals with WNV. Then we can theorize a correlation between
-house finch being a significant amplifying host of WNV in Salt Lake
-City. Some limitations could be the fact that we can only collect the
-mosquito data within a certain location with the mosquito catching
-boxes.
+The bar plot showed statistical significance in the amount of blood
+meals collected of house finches containing more often containing WNV
+compared to the other species of birds that blood meals were collected
+from. Even though the data was swayed towards the house finches because
+they are more prevelant we still see a large amount more containing WNV
+compared to the ones that do not. Then the generalized linear regression
+model had statistical significance in showing the amount of house
+finches containing WNV compared to the location they were collected
+from. This shows how not only do house finches have more WNV than other
+birds, but house finches whose blood from mosquitoes were collected in a
+certain area also contained more WNV. This shows us how the species of
+bird and location of blood meals collected from bird species plays an
+impact on the blood meals containing WNV. This could mean that there are
+certain properties in the house finch or in a certain location that
+causes WNV to be more able to be spread at that location. Even due to
+the limitations of the data not containing a very large variety of birds
+and being not very standardized on conditions mosquitoes are collected
+in, we still can not deny the correlation between house finches and
+there location when it comes to the spread of WNV.
 
 # **CONCLUSION**
 
-The house finch is an important amplifier of WNV in the Salt Lake
-Population. We can use this information to be able and create a way to
-decrease the spread of WNV in house finches.
+We can accurately theorize that house finch are an important amplifier
+of WNV in the Salt Lake City Population. We can do this because in our
+bar plots we saw a significant amount of more blood meals from the house
+finch containing WNV compared to all the other species of birds we
+collected blood meals from. This expands our knowledge of how WNV is
+spread and how there are specific virus bird hosts that are better at
+spreading the WNV compared to other species of bird hosts. We can use
+this information to be able and create a way to decrease the spread of
+WNV in house finches. We could increase the resilience of house finches
+by introducing GMOs into the population. We could develop more
+treatments that we give to house finches directly to stop the increase
+spread of WNV. There are so many solutions that we can now develop to
+stop the spread of this disease because we can target a new source of
+amplification host of house finches.
 
 # **REFERENCES**
 
@@ -303,7 +374,7 @@ decrease the spread of WNV in house finches.
     Dis. 2003 Mar;9(3):311-22. <https://doi.org/10.3201/eid0903.020628>
 
 2.  ChatGPT. OpenAI, version Jan 2025. Used as a reference for functions
-    such as plot() and to correct syntax errors. Accessed 2025-10-01.
+    such as plot() and to correct syntax errors. Accessed 2025-10-12.
 
 3.  Centers for Disease Control and Prevention. (n.d.). About West Nile.
     Centers for Disease Control and Prevention.
@@ -312,3 +383,7 @@ decrease the spread of WNV in house finches.
 4.  Centers for Disease Control and Prevention. (n.d.-b). Historic Data
     (1999-2024). Centers for Disease Control and Prevention.
     <https://www.cdc.gov/west-nile-virus/data-maps/historic-data.html>
+
+5.  Utah Natural Heritage Program. Species database - Utah Natural
+    Heritage Program Field Guide. (n.d.).
+    <https://fieldguide.wildlife.utah.gov/?species=haemorhous+mexicanus#>:~:text=The%20house%20finch%2C%20Carpodacus%20mexicanus,or%20five%20eggs%20are%20laid.
