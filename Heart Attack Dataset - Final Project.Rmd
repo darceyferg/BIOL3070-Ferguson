@@ -1,0 +1,57 @@
+---
+title: "Homework 10: Build 1 Figure"
+output: html_document
+date: "2025-10-28"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+heart <- read.csv(file = "heart_attack_dataset2.new.csv", header = TRUE)
+```
+
+# **ABSTRACT**
+
+
+# **BACKGROUND**
+
+# **STUDY QUESTIONS and HYPOTHESIS**
+
+## **Questions**  
+
+## **Hypothesis**
+  
+## **Prediction**
+
+# **METHODS**
+
+
+# **GGplot**
+
+```{r}
+levels(heart$Outcome) <- c(0, 1)
+
+ggplot(heart, aes(x=StressLevel, y= ST_Depression, size = Outcome)) +
+    geom_point(alpha=0.1) +
+    scale_size(range = c(0, 1))
+```
+
+## **Interpretation of Bar Plot Visualization**
+
+# **GGPlot**
+
+```{r}
+ggplot(heart, aes(x=StressLevel, y=ST_Depression, size=Outcome)) + 
+    geom_point(color="darkred") +
+    ggtitle("Size")
+```
+ 
+
+## **Interpretation of GLM**
+
+# **DISCUSSION**
+
+# **CONCLUSION**
+
+# **REFERENCES**   
