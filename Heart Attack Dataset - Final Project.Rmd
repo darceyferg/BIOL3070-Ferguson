@@ -30,9 +30,13 @@ heart <- read.csv(file = "heart_attack_dataset2.new.csv", header = TRUE)
 # **GGplot**
 
 ```{r}
+library(ggplot2)
+
 levels(heart$Outcome) <- c(0, 1)
 
-ggplot(heart, aes(x=StressLevel, y= ST_Depression, size = Outcome)) +
+heart$OutcomeNum <- ifelse(heart$Outcome == "Heart Attack", 1, 0)
+
+ggplot(heart, aes(x=StressLevel, y= ST_Depression, size = OutcomeNum)) +
     geom_point(alpha=0.1) +
     scale_size(range = c(0, 1))
 ```
@@ -42,7 +46,10 @@ ggplot(heart, aes(x=StressLevel, y= ST_Depression, size = Outcome)) +
 # **GGPlot**
 
 ```{r}
-ggplot(heart, aes(x=StressLevel, y=ST_Depression, size=Outcome)) + 
+library(ggplot2)
+heart$OutcomeNum <- ifelse(heart$Outcome == "Heart Attack", 1, 0)
+
+ggplot(heart, aes(x=StressLevel, y=ST_Depression, size = OutcomeNum)) + 
     geom_point(color="darkred") +
     ggtitle("Size")
 ```
