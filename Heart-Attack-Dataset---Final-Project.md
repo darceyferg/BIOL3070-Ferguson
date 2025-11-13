@@ -1,4 +1,4 @@
-Homework 10: Build 1 Figure
+Final Project Heart Attack Predictions
 ================
 Darcey Ferguson
 10/28/2025
@@ -10,68 +10,257 @@ Darcey Ferguson
   - [**Hypothesis**](#hypothesis)
   - [**Prediction**](#prediction)
 - [**METHODS**](#methods)
-- [**GGplot**](#ggplot)
-  - [**Interpretation of Bar Plot
-    Visualization**](#interpretation-of-bar-plot-visualization)
-- [**GGPlot**](#ggplot-1)
-  - [**Interpretation of GLM**](#interpretation-of-glm)
+  - [**Heart Attack vs Stress Level**](#heart-attack-vs-stress-level)
+  - [**Heart Attack vs Stress Level**](#heart-attack-vs-stress-level-1)
+  - [**Interpretation of Stress Level vs Heart Attack
+    Plot**](#interpretation-of-stress-level-vs-heart-attack-plot)
+  - [**Gender vs Heart Attack Heat
+    Plot**](#gender-vs-heart-attack-heat-plot)
+  - [**Interpretation of Gender vs Heart Attack
+    Plot**](#interpretation-of-gender-vs-heart-attack-plot)
+  - [**Education Level vs Heart
+    Attack**](#education-level-vs-heart-attack)
+  - [**Interpretation of Education Level vs Heart
+    Attack**](#interpretation-of-education-level-vs-heart-attack)
+  - [**All Variable Combined Plot**](#all-variable-combined-plot)
+  - [**Interpretation of All Variables Combined
+    Plot**](#interpretation-of-all-variables-combined-plot)
 - [**DISCUSSION**](#discussion)
 - [**CONCLUSION**](#conclusion)
 - [**REFERENCES**](#references)
 
 ``` r
-heart <- read.csv(file = "heart_attack_dataset2.new.csv", header = TRUE)
+heart_data <- read.csv(file = "heart_attack_dataset_age.csv", header = TRUE)
 ```
 
 # **ABSTRACT**
 
+Coming soon to DVD
+
 # **BACKGROUND**
+
+Every year about 805,000 Americans have a heart attack. (Tsao et al.,
+2023) A heart attack can pose pain from a mild discomfort to severe
+crushing pain. (Kulkarni, 2025) This health risk has become like a
+ticking bomb being able to strike anyone. With this disease that has the
+ability to strike a variety of different individuals, research has begun
+to try and predict risk factors or conditions that can cause an
+individual to be more susceptible to having a heart attack. Long-term or
+chronic stress can lead to higher levels of inflammation in the body
+which leads to more plague buildup in the arteries. (Katella, 2024)
+Additionally, stress also causes hormones such as adrenaline. (Katella,
+2024) Adrenaline increases mental alertness and the heart beats faster
+and raises blood pressure. (Katella, 2024) Prolonged stress leads to
+heart damage.
+
+With this in mind we turn to what might cause an individual to have
+prolonged stress. Specifically, undergraduate students often experience
+stress related to adapting to higher education and managing coursework.
+(Pérez-Jorge, 2025) Postgraduate students also exhibit stress about
+advanced research, thesis completion, and balancing academic work and
+professional responsibilities. (Pérez-Jorge, 2025) When it comes to
+pursuing higher education there are a lot of stressful responsibilities
+for individuals. This could be a cause of having a risk of heart attacks
+because of the impact of the stress on the body.
+
+Another factor that might contribute to a higher risk of heart attacks
+is gender. Researchers have found that men are twice as likely to have a
+heart attack than women. (Harvard Health Publishing, 2016) There is also
+some suspicion that hormones in women before menopause cause more
+defense for women against heart attacks. (Harvard Health Publishing,
+2016)
+
+Knowing this information brings a lot of question of how much factors
+like stress, gender, or education could lead to an individual being more
+likely to have a heart attack.
 
 # **STUDY QUESTIONS and HYPOTHESIS**
 
 ## **Questions**
 
+Does the gender, education level, and/or stress level an individual has
+affect the probability of them getting a heart attack?
+
 ## **Hypothesis**
+
+If an individual is male, has a higher level of education, and a higher
+stress level then we will see statistical significance with correlation
+to having a heart attack because of how these factors affect heart
+conditions over time.
 
 ## **Prediction**
 
+An individual is male, has a higher level of education, and a higher the
+stress level they will be more likely to have a heart attack at some
+point in their life
+
 # **METHODS**
 
-# **GGplot**
+The database chosen for this study was the Kaggle database, and the
+heart attack prediction set was the one chosen for this study. It was
+chosen because it had enough entries for our purposes and many variables
+to test. Once the variables were chosen, an excel spreadsheet was
+created to hold all the data. Multiple linear regression models were
+made testing variables against the outcomes of heart attack. After all
+the variables were tested individually, they were then all tested at the
+same time vs heart attack outcome to test for a correlation between all
+of them.
+
+## **Heart Attack vs Stress Level**
+
+``` r
+ggplot(heart_data, aes(x = Outcome, y = StressLevel, fill = Outcome)) +
+  geom_violin(trim = FALSE, alpha = 0.7) +
+  geom_boxplot(width = 0.1, fill = "white", alpha = 0.5) +
+  labs(
+    title = "Stress Levels by Heart Attack Outcome",
+    x = "Heart Attack Outcome",
+    y = "Stress Level (1–9)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "none"
+  )
+```
+
+## **Heart Attack vs Stress Level**
+
+``` r
+library(ggplot2)
+library(ggridges)
+
+ggplot(heart_data, aes(x = StressLevel, y = Outcome, fill = Outcome)) +
+  geom_density_ridges(alpha = 0.7, color = "black", scale = 1) +
+  scale_fill_manual(values = c("No Heart Attack" = "skyblue", "Heart Attack" = "tomato")) +
+  labs(
+    title = "Distribution of Stress Levels by Heart Attack Outcome",
+    x = "Stress Level (1–9)",
+    y = "Heart Attack Outcome",
+    fill = "Outcome"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "none",
+    axis.title.y = element_text(face = "bold"),
+    axis.title.x = element_text(face = "bold")
+  )
+```
+
+## **Interpretation of Stress Level vs Heart Attack Plot**
+
+Coming soon to DVD
+
+## **Gender vs Heart Attack Heat Plot**
+
+``` r
+library(dplyr)
+library(ggplot2)
+library(viridis)  
+
+# Summarize counts
+gender_counts <- heart_data %>%
+  group_by(Gender, Outcome) %>%
+  summarise(count = n(), .groups = "drop")
+
+#Heat map
+ggplot(gender_counts, aes(x = Gender, y = Outcome, fill = count)) +
+  geom_tile(color = "white", size = 0.8) +  # white borders between tiles
+  geom_text(aes(label = count), color = "white", size = 6, fontface = "bold") +
+  scale_fill_viridis(option = "C", direction = -1) +  # smooth and modern gradient
+  labs(
+    title = "Heart Attack Outcomes by Gender",
+    x = "Gender",
+    y = "Heart Attack Outcome",
+    fill = "Count"
+  ) +
+  theme_minimal(base_size = 15) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 20),
+    axis.text = element_text(face = "bold", size = 14),
+    axis.title = element_text(face = "bold", size = 16),
+    legend.title = element_text(face = "bold", size = 14),
+    legend.text = element_text(size = 12)
+  )
+```
+
+## **Interpretation of Gender vs Heart Attack Plot**
+
+Coming soon to DVD
+
+## **Education Level vs Heart Attack**
+
+``` r
+library(dplyr)
+library(ggplot2)
+
+# Summarize counts
+edu_counts <- heart_data %>%
+  group_by(EducationLevel, Outcome) %>%
+  summarise(count = n(), .groups = "drop")
+
+# Fancy lollipop chart
+ggplot(edu_counts, aes(x = EducationLevel, y = count, color = Outcome)) +
+  geom_segment(aes(x = EducationLevel, xend = EducationLevel, y = 0, yend = count), linewidth = 1.2) +
+  geom_point(size = 6) +
+  scale_color_manual(values = c("No Heart Attack" = "skyblue", "Heart Attack" = "tomato")) +
+  labs(
+    title = "Heart Attack Outcomes by Education Level",
+    x = "Education Level",
+    y = "Count of Individuals",
+    color = "Heart Attack Outcome"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+## **Interpretation of Education Level vs Heart Attack**
+
+Coming soon to DVD
+
+## **All Variable Combined Plot**
 
 ``` r
 library(ggplot2)
 
-levels(heart$Outcome) <- c(0, 1)
-
-heart$OutcomeNum <- ifelse(heart$Outcome == "Heart Attack", 1, 0)
-
-ggplot(heart, aes(x=StressLevel, y= ST_Depression, size = OutcomeNum)) +
-    geom_point(alpha=0.1) +
-    scale_size(range = c(0, 1))
+ggplot(heart_data, aes(
+  x = EducationLevel,
+  y = StressLevel,
+  color = Outcome,       
+  alpha = Outcome,  
+  shape = Gender
+)) +
+  geom_jitter(width = 0.3, size = 4) +
+  scale_alpha_manual(values = c("No Heart Attack" = .9, "Heart Attack" = 1)) +
+  scale_shape_manual(values = c("Female" = 1, "Male" = 16)) +  # hollow vs filled
+  scale_color_manual(values = c("No Heart Attack" = "lightblue3", "Heart Attack" = "indianred2")) + 
+  labs(
+    title = "Stress Levels by Education, Gender, and Heart Attack Outcome",
+    x = "Education Level",
+    y = "Stress Level (1–9)",
+    color = "Heart Attack Outcome",
+    alpha = "Heart Attack Outcome",
+    shape = "Gender"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
 ```
 
-![](Heart-Attack-Dataset---Final-Project_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+## **Interpretation of All Variables Combined Plot**
 
-## **Interpretation of Bar Plot Visualization**
-
-# **GGPlot**
-
-``` r
-library(ggplot2)
-heart$OutcomeNum <- ifelse(heart$Outcome == "Heart Attack", 1, 0)
-
-ggplot(heart, aes(x=StressLevel, y=ST_Depression, size = OutcomeNum)) + 
-    geom_point(color="darkred") +
-    ggtitle("Size")
-```
-
-![](Heart-Attack-Dataset---Final-Project_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
-
-## **Interpretation of GLM**
+Coming soon to DVD
 
 # **DISCUSSION**
 
+Coming soon to DVD
+
 # **CONCLUSION**
 
+Coming soon to DVD
+
 # **REFERENCES**
+
+Coming soon to DVD
