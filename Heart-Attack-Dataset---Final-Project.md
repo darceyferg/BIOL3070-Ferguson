@@ -25,8 +25,19 @@ Darcey Ferguson
 - [**REFERENCES**](#references)
 
 ``` r
-heart_data <- read.csv(file = "heart_attack_dataset_age.csv", header = TRUE)
+library(knitr)
+opts_chunk$set(dev="png")
 ```
+
+``` r
+knitr::opts_chunk$set(fig.path='Figs/')
+```
+
+
+
+
+    ``` r
+    heart_data <- read.csv(file = "heart_attack_dataset_age.csv", header = TRUE)
 
 ``` r
 install.packages("dplyr", dependencies = TRUE)
@@ -194,7 +205,7 @@ ggplot(heart_data, aes(x = Outcome, y = StressLevel, fill = Outcome)) +
   )
 ```
 
-![](Heart-Attack-Dataset---Final-Project_files/figure-gfm/Heart%20Attack%20vs%20StressLevel%20Violin%20Plot-1.png)<!-- -->
+![](Figs/Heart%20Attack%20vs%20StressLevel%20Violin%20Plot-1.png)<!-- -->
 
 ### **Interpretation of Stress Level vs Heart Attack Plot**
 
@@ -243,8 +254,8 @@ ggplot(gender_counts, aes(x = Gender, y = Outcome, fill = count)) +
     ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
     ## generated.
 
-![](Heart-Attack-Dataset---Final-Project_files/figure-gfm/Gender%20vs%20Heart%20Attack%20Heat%20Plot-1.png)<!-- -->
-\### **Interpretation of Gender vs Heart Attack Plot**
+![](Figs/Gender%20vs%20Heart%20Attack%20Heat%20Plot-1.png)<!-- --> \###
+**Interpretation of Gender vs Heart Attack Plot**
 
 Analysis showed no statistically significant relationship between
 education level and heart attack occurrence (p = 0.554). This indicates
@@ -277,7 +288,7 @@ ggplot(edu_counts, aes(x = EducationLevel, y = count, color = Outcome)) +
   theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 ```
 
-![](Heart-Attack-Dataset---Final-Project_files/figure-gfm/Heart%20Attack%20Vs%20Education%20Level%20lollipop%20Plot-1.png)<!-- -->
+![](Figs/Heart%20Attack%20Vs%20Education%20Level%20lollipop%20Plot-1.png)<!-- -->
 \### **Interpretation of Education Level vs Heart Attack**
 
 Analysis showed no statistically significant association between gender
@@ -315,7 +326,7 @@ ggplot(heart_data, aes(
   )
 ```
 
-![](Heart-Attack-Dataset---Final-Project_files/figure-gfm/Stress%20Levels,%20Education%20Level,%20Gender,%20Heart%20Attack-1.png)<!-- -->
+![](Figs/Stress%20Levels,%20Education%20Level,%20Gender,%20Heart%20Attack-1.png)<!-- -->
 
 ### **Stress Level, Education Level, and Gender vs Heart Attack**
 
