@@ -25,19 +25,8 @@ Darcey Ferguson
 - [**REFERENCES**](#references)
 
 ``` r
-library(knitr)
-opts_chunk$set(dev="png")
+heart_data <- read.csv(file = "heart_attack_dataset_age.csv", header = TRUE)
 ```
-
-``` r
-knitr::opts_chunk$set(fig.path='Figs/')
-```
-
-
-
-
-    ``` r
-    heart_data <- read.csv(file = "heart_attack_dataset_age.csv", header = TRUE)
 
 ``` r
 install.packages("dplyr", dependencies = TRUE)
@@ -205,7 +194,7 @@ ggplot(heart_data, aes(x = Outcome, y = StressLevel, fill = Outcome)) +
   )
 ```
 
-![](Figs/Heart%20Attack%20vs%20StressLevel%20Violin%20Plot-1.png)<!-- -->
+<img src="Heart-Attack-Dataset---Final-Project_files/figure-gfm/Heart Attack vs StressLevel Violin Plot-1.png" style="display: block; margin: auto auto auto 0;" />
 
 ### **Interpretation of Stress Level vs Heart Attack Plot**
 
@@ -248,14 +237,8 @@ ggplot(gender_counts, aes(x = Gender, y = Outcome, fill = count)) +
   )
 ```
 
-    ## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-    ## ℹ Please use `linewidth` instead.
-    ## This warning is displayed once every 8 hours.
-    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-    ## generated.
-
-![](Figs/Gender%20vs%20Heart%20Attack%20Heat%20Plot-1.png)<!-- --> \###
-**Interpretation of Gender vs Heart Attack Plot**
+<img src="Heart-Attack-Dataset---Final-Project_files/figure-gfm/Gender vs Heart Attack Heat Plot-1.png" style="display: block; margin: auto auto auto 0;" />
+\### **Interpretation of Gender vs Heart Attack Plot**
 
 Analysis showed no statistically significant relationship between
 education level and heart attack occurrence (p = 0.554). This indicates
@@ -288,7 +271,7 @@ ggplot(edu_counts, aes(x = EducationLevel, y = count, color = Outcome)) +
   theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 ```
 
-![](Figs/Heart%20Attack%20Vs%20Education%20Level%20lollipop%20Plot-1.png)<!-- -->
+<img src="Heart-Attack-Dataset---Final-Project_files/figure-gfm/Heart Attack Vs Education Level lollipop Plot-1.png" style="display: block; margin: auto auto auto 0;" />
 \### **Interpretation of Education Level vs Heart Attack**
 
 Analysis showed no statistically significant association between gender
@@ -326,7 +309,7 @@ ggplot(heart_data, aes(
   )
 ```
 
-![](Figs/Stress%20Levels,%20Education%20Level,%20Gender,%20Heart%20Attack-1.png)<!-- -->
+<img src="Heart-Attack-Dataset---Final-Project_files/figure-gfm/Stress Levels, Education Level, Gender, Heart Attack-1.png" style="display: block; margin: auto auto auto 0;" />
 
 ### **Stress Level, Education Level, and Gender vs Heart Attack**
 
