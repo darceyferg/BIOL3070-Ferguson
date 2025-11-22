@@ -342,7 +342,9 @@ found no statistically significant relationship between the two. A
 possible explanation of this is that education level and prolonged
 stress might not be as correlated as we thought. Even if school work
 leads to stress over a long period of time, having more education can
-lead to a more secure job environment and lower stress. …
+lead to a more secure job environment and lower stress.
+
+…
 
 # **CONCLUSION**
 
