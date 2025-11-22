@@ -11,20 +11,15 @@ Darcey Ferguson
   - [**Prediction**](#prediction)
 - [**METHODS**](#methods)
   - [**Heart Attack vs Stress Level**](#heart-attack-vs-stress-level)
-  - [**Heart Attack vs Stress Level**](#heart-attack-vs-stress-level-1)
   - [**Interpretation of Stress Level vs Heart Attack
     Plot**](#interpretation-of-stress-level-vs-heart-attack-plot)
   - [**Gender vs Heart Attack Heat
     Plot**](#gender-vs-heart-attack-heat-plot)
-  - [**Interpretation of Gender vs Heart Attack
-    Plot**](#interpretation-of-gender-vs-heart-attack-plot)
   - [**Education Level vs Heart
     Attack**](#education-level-vs-heart-attack)
-  - [**Interpretation of Education Level vs Heart
-    Attack**](#interpretation-of-education-level-vs-heart-attack)
   - [**All Variable Combined Plot**](#all-variable-combined-plot)
-  - [**Interpretation of All Variables Combined
-    Plot**](#interpretation-of-all-variables-combined-plot)
+  - [**Stress Level, Education Level, and Gender vs Heart
+    Attack**](#stress-level-education-level-and-gender-vs-heart-attack)
 - [**DISCUSSION**](#discussion)
 - [**CONCLUSION**](#conclusion)
 - [**REFERENCES**](#references)
@@ -33,9 +28,86 @@ Darcey Ferguson
 heart_data <- read.csv(file = "heart_attack_dataset_age.csv", header = TRUE)
 ```
 
+``` r
+install.packages("dplyr", dependencies = TRUE)
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.5'
+    ## (as 'lib' is unspecified)
+
+``` r
+library(dplyr)
+```
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
+install.packages("ggplot2", dependencies = TRUE)
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.5'
+    ## (as 'lib' is unspecified)
+
+    ## also installing the dependencies 'later', 'quarto'
+
+``` r
+library(ggplot2)
+install.packages("viridis", dependencies = TRUE)
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.5'
+    ## (as 'lib' is unspecified)
+
+    ## also installing the dependency 'terra'
+
+    ## Warning in install.packages("viridis", dependencies = TRUE): installation of
+    ## package 'terra' had non-zero exit status
+
+``` r
+library(viridis)
+```
+
+    ## Loading required package: viridisLite
+
+``` r
+install.packages("ggridges", dependencies = TRUE)
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.5'
+    ## (as 'lib' is unspecified)
+
+``` r
+library(ggridges)
+```
+
 # **ABSTRACT**
 
-Coming soon to DVD
+Heart attacks affect approximately 805,000 Americans annually, showing
+the importance to understand factors that contribute to increased
+cardiovascular risk. Previous research indicates that chronic stress can
+heighten inflammation, promote arterial plaque buildup, and elevate
+blood pressure through increased hormone release, ultimately leading to
+more risk of cardiac events. Stress is particularly prevalent among
+individuals pursuing higher education, as both undergraduate and
+postgraduate students face academic, professional, and personal
+pressures that may contribute to long-term stress. Additionally, gender
+has been identified as a potential risk factor, with men experiencing
+heart attacks at roughly twice the rate of women, suggesting a possibly
+protective hormonal differences. Given these observations, this study
+examines how stress levels, educational status, and gender may interact
+to influence the likelihood of experiencing a heart attack. The results
+conclude no correlation between these factors and the presence of an
+individual having a heart attack. This continues our search to find a
+potential risk factor for heart attacks.
 
 # **BACKGROUND**
 
@@ -106,7 +178,7 @@ the variables were tested individually, they were then all tested at the
 same time vs heart attack outcome to test for a correlation between all
 of them.
 
-## **Heart Attack vs Stress Level**
+### **Heart Attack vs Stress Level**
 
 ``` r
 ggplot(heart_data, aes(x = Outcome, y = StressLevel, fill = Outcome)) +
@@ -124,35 +196,17 @@ ggplot(heart_data, aes(x = Outcome, y = StressLevel, fill = Outcome)) +
   )
 ```
 
-## **Heart Attack vs Stress Level**
+![](Heart-Attack-Dataset---Final-Project_files/figure-gfm/Heart%20Attack%20vs%20StressLevel%20Violin%20Plot-1.png)<!-- -->
 
-``` r
-library(ggplot2)
-library(ggridges)
+### **Interpretation of Stress Level vs Heart Attack Plot**
 
-ggplot(heart_data, aes(x = StressLevel, y = Outcome, fill = Outcome)) +
-  geom_density_ridges(alpha = 0.7, color = "black", scale = 1) +
-  scale_fill_manual(values = c("No Heart Attack" = "skyblue", "Heart Attack" = "tomato")) +
-  labs(
-    title = "Distribution of Stress Levels by Heart Attack Outcome",
-    x = "Stress Level (1–9)",
-    y = "Heart Attack Outcome",
-    fill = "Outcome"
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(
-    plot.title = element_text(hjust = 0.5, face = "bold"),
-    legend.position = "none",
-    axis.title.y = element_text(face = "bold"),
-    axis.title.x = element_text(face = "bold")
-  )
-```
+Analysis showed no statistically significant association between stress
+levels and heart attack occurrence (p = 0.297). This suggests that
+variations in stress level are not strongly linked to the likelihood of
+experiencing a heart attack. However, this analysis does not account for
+the potential effects of chronic or long-term stress exposure.
 
-## **Interpretation of Stress Level vs Heart Attack Plot**
-
-Coming soon to DVD
-
-## **Gender vs Heart Attack Heat Plot**
+### **Gender vs Heart Attack Heat Plot**
 
 ``` r
 library(dplyr)
@@ -185,11 +239,21 @@ ggplot(gender_counts, aes(x = Gender, y = Outcome, fill = count)) +
   )
 ```
 
-## **Interpretation of Gender vs Heart Attack Plot**
+    ## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+    ## ℹ Please use `linewidth` instead.
+    ## This warning is displayed once every 8 hours.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
 
-Coming soon to DVD
+![](Heart-Attack-Dataset---Final-Project_files/figure-gfm/Gender%20vs%20Heart%20Attack%20Heat%20Plot-1.png)<!-- -->
+\### **Interpretation of Gender vs Heart Attack Plot**
 
-## **Education Level vs Heart Attack**
+Analysis showed no statistically significant relationship between
+education level and heart attack occurrence (p = 0.554). This indicates
+that differences in education level are not very likely to cause a
+change in how likely someone is to have a heart attack.
+
+### **Education Level vs Heart Attack**
 
 ``` r
 library(dplyr)
@@ -215,11 +279,15 @@ ggplot(edu_counts, aes(x = EducationLevel, y = count, color = Outcome)) +
   theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 ```
 
-## **Interpretation of Education Level vs Heart Attack**
+![](Heart-Attack-Dataset---Final-Project_files/figure-gfm/Heart%20Attack%20Vs%20Education%20Level%20lollipop%20Plot-1.png)<!-- -->
+\### **Interpretation of Education Level vs Heart Attack**
 
-Coming soon to DVD
+Analysis showed no statistically significant association between gender
+and heart attack occurrence (p = 0.672). This suggests that being male
+or female does not meaningfully influence the likelihood of experiencing
+a heart attack.
 
-## **All Variable Combined Plot**
+### **All Variable Combined Plot**
 
 ``` r
 library(ggplot2)
@@ -243,24 +311,77 @@ ggplot(heart_data, aes(
     alpha = "Heart Attack Outcome",
     shape = "Gender"
   ) +
-  theme_minimal(base_size = 14) +
+  theme_minimal(base_size = 7) +
   theme(
     plot.title = element_text(hjust = 0.5, face = "bold")
   )
 ```
 
-## **Interpretation of All Variables Combined Plot**
+![](Heart-Attack-Dataset---Final-Project_files/figure-gfm/Stress%20Levels,%20Education%20Level,%20Gender,%20Heart%20Attack-1.png)<!-- -->
 
-Coming soon to DVD
+### **Stress Level, Education Level, and Gender vs Heart Attack**
+
+Analysis showed no statistically significant association between the
+combined effects of stress levels, education levels, and gender, and
+heart attack occurrence (p = 0.624). This indicates that, collectively,
+these factors do not significantly influence heart attack risk.
 
 # **DISCUSSION**
 
-Coming soon to DVD
+From the database we saw no statistical significance between the stress
+level an individual gave themselves and whether or not that person had a
+heart attack. This could be due to a number of different factors. Having
+an individual give their own assessment of stress might not be accurate
+to the stress they actually exhibit at the time. They could feel stress
+very casually or very intensely from person to person. Also, the stress
+level they gave does not reflect whether or not they have prolonged
+stress. They could be having a bad day that caused them to give a higher
+stress level on the day they were asked, but overall they do not have
+prolonged stress.
+
+When we looked at how education level could be tied to heart attacks, we
+found no statistically significant relationship between the two. A
+possible explanation of this is that education level and prolonged
+stress might not be as correlated as we thought. Even if school work
+leads to stress over a long period of time, having more education can
+lead to a more secure job environment and lower stress. …
 
 # **CONCLUSION**
 
-Coming soon to DVD
+In conclusion, we found no statistically significant data showing that
+heart attacks can be predicted by the lifestyle of being male, having a
+higher education, a higher stress level. …
 
 # **REFERENCES**
 
-Coming soon to DVD
+Harvard Health Publishing. “Throughout Life, Heart Attacks Are Twice as
+Common in Men than Women - Harvard Health.” Harvard Health, Harvard
+Health, 8 Nov. 2016,
+www.health.harvard.edu/heart-health/throughout-life-heart-attacks-are-twice-as-common-in-men-than-women.
+
+Katella, Kathy. “Yes, Stress Can Hurt Your Heart: 3 Things to Know.”
+Yale Medicine, 12 Feb. 2024,
+www.yalemedicine.org/news/stress-affects-your-heart.
+
+Kulkarni, Anandita. “What Does a Heart Attack Feel Like? 8 Warning Signs
+You Shouldn’t Ignore.” @Bswhealth, 2025,
+www.bswhealth.com/blog/what-does-a-heart-attack-feel-like-8-warning-signs.
+
+OpenAI. “ChatGPT.” Chatgpt.com, OpenAI, 12 Sept. 2025, chatgpt.com.
+
+Panday, Ankush. “Heart Attack Prediction in United States.” Kaggle.com,
+2025,
+www.kaggle.com/datasets/ankushpanday2/heart-attack-prediction-in-united-states/data.
+Accessed 6 Nov. 2025.
+
+Pérez-Jorge, David, et al. “Examining the Effects of Academic Stress on
+Student Well-Being in Higher Education.” Humanities and Social Sciences
+Communications, vol. 12, no. 1, 28 Mar. 2025, pp. 1–13,
+www.nature.com/articles/s41599-025-04698-y,
+<https://doi.org/10.1057/s41599-025-04698-y>.
+
+Tsao, Connie W., et al. “Heart Disease and Stroke Statistics—2023
+Update: A Report from the American Heart Association.” Circulation,
+vol. 147, no. 8, 25 Jan. 2023,
+www.ahajournals.org/doi/10.1161/CIR.0000000000001123,
+<https://doi.org/10.1161/cir.0000000000001123>.
