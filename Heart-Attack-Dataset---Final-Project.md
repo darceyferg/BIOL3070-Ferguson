@@ -57,8 +57,6 @@ install.packages("ggplot2", dependencies = TRUE)
     ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.5'
     ## (as 'lib' is unspecified)
 
-    ## also installing the dependencies 'later', 'quarto'
-
 ``` r
 library(ggplot2)
 install.packages("viridis", dependencies = TRUE)
