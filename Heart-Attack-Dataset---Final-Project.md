@@ -35,6 +35,10 @@ knitr::opts_chunk$set(fig.path = "images/")
 ```
 
 ``` r
+knitr::opts_chunk$set(fig.path = "figs/")
+```
+
+``` r
 heart_data <- read.csv(file = "heart_attack_dataset_age.csv", header = TRUE)
 heart_data$EducationLevel <- factor(
   heart_data$EducationLevel,
@@ -226,7 +230,7 @@ ggplot(heart_data, aes(x = Outcome, y = StressLevel, fill = Outcome)) +
   )
 ```
 
-![](images/Heart%20Attack%20vs%20StressLevel%20Violin%20Plot-1.png)<!-- -->
+![](figs/Heart%20Attack%20vs%20StressLevel%20Violin%20Plot-1.png)<!-- -->
 
 ### **Interpretation of Stress Level vs Heart Attack Plot**
 
@@ -275,7 +279,7 @@ ggplot(gender_counts, aes(x = Gender, y = Outcome, fill = count)) +
     ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
     ## generated.
 
-![](images/Gender%20vs%20Heart%20Attack%20Heat%20Plot-1.png)<!-- -->
+![](figs/Gender%20vs%20Heart%20Attack%20Heat%20Plot-1.png)<!-- -->
 
 ### **Interpretation of Gender vs Heart Attack Plot**
 
@@ -315,7 +319,7 @@ ggplot(edu_counts, aes(x = EducationLevel, y = count, fill = Outcome)) +
   theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 ```
 
-![](images/Heart%20Attack%20Vs%20Education%20Level%20Side%20by%20Side%20Bar%20Plot-1.png)<!-- -->
+![](figs/Heart%20Attack%20Vs%20Education%20Level%20Side%20by%20Side%20Bar%20Plot-1.png)<!-- -->
 
 ### **Interpretation of Education Level vs Heart Attack**
 
@@ -354,7 +358,7 @@ ggplot(heart_data, aes(
   )
 ```
 
-![](images/Stress%20Levels,%20Education%20Level,%20Gender,%20Heart%20Attack-1.png)<!-- -->
+![](figs/Stress%20Levels,%20Education%20Level,%20Gender,%20Heart%20Attack-1.png)<!-- -->
 
 ### **Interpretation of Stress Level, Education Level, and Gender vs Heart Attack**
 
