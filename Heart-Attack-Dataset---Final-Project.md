@@ -35,22 +35,6 @@ knitr::opts_chunk$set(fig.path = "images/")
 ```
 
 ``` r
-knitr::opts_chunk$set(fig.path = "figs/")
-```
-
-``` r
-heart_data <- read.csv(file = "heart_attack_dataset_age.csv", header = TRUE)
-heart_data$EducationLevel <- factor(
-  heart_data$EducationLevel,
-  levels = c(
-    "High School",
-    "College",
-    "Postgraduate"
-  )
-)
-```
-
-``` r
 install.packages("dplyr", dependencies = TRUE)
 ```
 
@@ -115,6 +99,37 @@ install.packages("ggridges", dependencies = TRUE)
 
 ``` r
 library(ggridges)
+install.packages("tidyverse", dependencies = TRUE)
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.5'
+    ## (as 'lib' is unspecified)
+
+``` r
+library(tidyverse)
+```
+
+    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+    ## ✔ forcats   1.0.1     ✔ stringr   1.5.2
+    ## ✔ lubridate 1.9.4     ✔ tibble    3.3.0
+    ## ✔ purrr     1.1.0     ✔ tidyr     1.3.1
+    ## ✔ readr     2.1.5
+
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+``` r
+install.packages("broom", dependencies = TRUE)
+```
+
+    ## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.5'
+    ## (as 'lib' is unspecified)
+    ## also installing the dependency 'lme4'
+
+``` r
+library(broom)
 ```
 
 # **ABSTRACT**
@@ -230,7 +245,7 @@ ggplot(heart_data, aes(x = Outcome, y = StressLevel, fill = Outcome)) +
   )
 ```
 
-![](figs/Heart%20Attack%20vs%20StressLevel%20Violin%20Plot-1.png)<!-- -->
+<img src="images/Heart Attack vs StressLevel Violin Plot-1.png" style="display: block; margin: auto auto auto 0;" />
 
 ### **Interpretation of Stress Level vs Heart Attack Plot**
 
@@ -273,13 +288,7 @@ ggplot(gender_counts, aes(x = Gender, y = Outcome, fill = count)) +
   )
 ```
 
-    ## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-    ## ℹ Please use `linewidth` instead.
-    ## This warning is displayed once every 8 hours.
-    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-    ## generated.
-
-![](figs/Gender%20vs%20Heart%20Attack%20Heat%20Plot-1.png)<!-- -->
+<img src="images/Gender vs Heart Attack Heat Plot-1.png" style="display: block; margin: auto auto auto 0;" />
 
 ### **Interpretation of Gender vs Heart Attack Plot**
 
@@ -319,7 +328,7 @@ ggplot(edu_counts, aes(x = EducationLevel, y = count, fill = Outcome)) +
   theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 ```
 
-![](figs/Heart%20Attack%20Vs%20Education%20Level%20Side%20by%20Side%20Bar%20Plot-1.png)<!-- -->
+<img src="images/Heart Attack Vs Education Level Side by Side Bar Plot-1.png" style="display: block; margin: auto auto auto 0;" />
 
 ### **Interpretation of Education Level vs Heart Attack**
 
@@ -358,7 +367,7 @@ ggplot(heart_data, aes(
   )
 ```
 
-![](figs/Stress%20Levels,%20Education%20Level,%20Gender,%20Heart%20Attack-1.png)<!-- -->
+<img src="images/Stress Levels, Education Level, Gender, Heart Attack-1.png" style="display: block; margin: auto auto auto 0;" />
 
 ### **Interpretation of Stress Level, Education Level, and Gender vs Heart Attack**
 
