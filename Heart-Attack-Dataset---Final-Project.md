@@ -213,7 +213,7 @@ model to identify combined contribution to heart attack prediction.
 ``` r
 ggplot(heart_data, aes(x = Outcome, y = StressLevel, fill = Outcome)) +
   geom_violin(trim = FALSE, alpha = 0.7) +
-  geom_boxplot(width = 0.1, fill = "white", alpha = 0.5) +
+  geom_boxplot(width = 0.5, fill = "white", alpha = 0.5) +
   labs(
     title = "Stress Levels by Heart Attack Outcome",
     x = "Heart Attack Outcome",
@@ -336,7 +336,7 @@ ggplot(heart_data, aes(
   alpha = Outcome,  
   shape = Gender
 )) +
-  geom_jitter(width = 0.3, size = 4) +
+  geom_jitter(width = 0.5, size = 4) +
   scale_alpha_manual(values = c("No Heart Attack" = .9, "Heart Attack" = 1)) +
   scale_shape_manual(values = c("Female" = 1, "Male" = 16)) +  # hollow vs filled
   scale_color_manual(values = c("No Heart Attack" = "lightblue3", "Heart Attack" = "indianred2")) + 
