@@ -10,7 +10,7 @@ Darcey Ferguson
   - [**Hypothesis**](#hypothesis)
   - [**Prediction**](#prediction)
 - [**METHODS**](#methods)
-- [**Bar Plot visualization**](#bar-plot-visualization)
+- [**Bar Plot Visualization**](#bar-plot-visualization)
   - [**Interpretation of Bar Plot
     Visualization**](#interpretation-of-bar-plot-visualization)
 - [**Generalized Linear Modeling**](#generalized-linear-modeling)
@@ -110,33 +110,42 @@ rates of confirmed WNV in the mosquito groups we tested.
 
 # **METHODS**
 
-**Source of Birds and Mosquitoes** Birds from Salt Lake City area were
-the main target for the mosquitoes that we collected in our analysis.
+**Source of Birds and Mosquitoes**
 
-**Capture of Mosquitos** Box traps that lure mosquitoes in and then trap
-them were placed at certain places around Salt Lake city.
+Birds from Salt Lake City area were the main target for the mosquitoes
+that we collected in our analysis.
 
-**Evaluation of Mosquitoes’ Blood** Once the mosquitoes were collected
-we put each into a microtube. Then using sterilt techniques we crushed
-the mosquito to release the blood from the mosquitoes body. The blood
-belonging to the host it extracted it from if it is a female mosquito.
-The mosquito was further isolated until only the host animal DNA was
-left. The blood was sequenced using PCR and DNA sequencing. Next the DNA
-sequences were put through the system known as BLAST to identify the
-blood with the species of animal that the blood was extracted from.
+**Capture of Mosquitos**
 
-**West Nile Virus Examination** The blood from bird hosts were also
-assessed to find if it possesses WNV. The data was collected into a
-database and processed in R Studio.
+Box traps that lure mosquitoes in and then trap them were placed at
+certain places around Salt Lake city.
 
-**Analysis Methods** The data was plotted in a bar plot to examine how
-each of the host birds had WNV and how long that WNV was examines in the
-bird. The other analysis was a generalized linear regression used to
-determine correlation between the location of the mosquitoes collected
-and the WNV being examined in that area. We used statistical tests to
-determined the statistical significance from each of the data.
+**Evaluation of Mosquitoes’ Blood**
 
-# **Bar Plot visualization**
+Once the mosquitoes were collected we put each into a microtube. Then
+using sterilt techniques we crushed the mosquito to release the blood
+from the mosquitoes body. The blood belonging to the host it extracted
+it from if it is a female mosquito. The mosquito was further isolated
+until only the host animal DNA was left. The blood was sequenced using
+PCR and DNA sequencing. Next the DNA sequences were put through the
+system known as BLAST to identify the blood with the species of animal
+that the blood was extracted from.
+
+**West Nile Virus Examination**
+
+The blood from bird hosts were also assessed to find if it possesses
+WNV. The data was collected into a database and processed in R Studio.
+
+**Analysis Methods**
+
+The data was plotted in a bar plot to examine how each of the host birds
+had WNV and how long that WNV was examines in the bird. The other
+analysis was a generalized linear regression used to determine
+correlation between the location of the mosquitoes collected and the WNV
+being examined in that area. We used statistical tests to determined the
+statistical significance from each of the data.
+
+# **Bar Plot Visualization**
 
 Barplots of blood meal ID by trap locations with/without WNV positive
 mosquito pools
@@ -374,7 +383,7 @@ amplification host of house finches.
     Dis. 2003 Mar;9(3):311-22. <https://doi.org/10.3201/eid0903.020628>
 
 2.  ChatGPT. OpenAI, version Jan 2025. Used as a reference for functions
-    such as plot() and to correct syntax errors. Accessed 2025-10-12.
+    such as plot() and to correct syntax errors. Accessed 2025-11-20.
 
 3.  Centers for Disease Control and Prevention. (n.d.). About West Nile.
     Centers for Disease Control and Prevention.
